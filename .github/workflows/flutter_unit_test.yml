@@ -1,0 +1,27 @@
+name: Flutter Unit Test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '2.8.0' # Puedes cambiar a la versión de Flutter que necesites
+
+    - name: Get dependencies
+      run: flutter pub get
+
+    - name: Run tests
+      run: flutter test
+
+    - name: Upload test coverage
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage
+        path: coverage/lcov.info
